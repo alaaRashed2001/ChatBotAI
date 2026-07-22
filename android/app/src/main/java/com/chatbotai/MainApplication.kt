@@ -1,4 +1,4 @@
-package com.chatbotai
+package com.ai.chatty
 
 import android.app.Application
 import com.facebook.react.PackageList
