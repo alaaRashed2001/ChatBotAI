@@ -11,7 +11,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import { useNotifications } from './android/src/notifications/useNotifications';
+import { useNotifications } from './src/notifications/useNotifications';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
