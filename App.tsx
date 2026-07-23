@@ -11,10 +11,11 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import { useNotifications } from './android/src/notifications/useNotifications';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
-
+  useNotifications();
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
