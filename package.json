@@ -7,14 +7,23 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "both": "react-native run-android && react-native run-ios",
+    "g-c-run": "cd android && ./gradlew clean && cd .. && react-native run-android",
+    "g-clean": "cd android && ./gradlew clean && cd .. ",
+    "pod": "cd ios && pod install && cd ..",
+    "open-xcode": "xed -b ios",
+    "new-blood": "rm -rf node_modules && rm -rf yarn.lock && cd ios && rm -rf Podfile.lock && cd .. && yarn install && cd ios && pod install && cd .."
   },
   "dependencies": {
+    "@react-native-firebase/app": "^25.1.0",
+    "@react-native-firebase/messaging": "^25.1.0",
     "@react-native/new-app-screen": "0.86.0",
     "axios": "^1.18.1",
     "react": "19.2.3",
     "react-native": "0.86.0",
-    "react-native-safe-area-context": "^5.5.2"
+    "react-native-safe-area-context": "^5.5.2",
+    "react-native-size-matters": "^0.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -34,6 +43,7 @@
     "jest": "^29.6.3",
     "prettier": "2.8.8",
     "react-test-renderer": "19.2.3",
+    "reactotron-react-native": "^5.2.0",
     "typescript": "^5.8.3"
   },
   "engines": {
