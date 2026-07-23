@@ -1,6 +1,11 @@
 import { useEffect } from 'react';
 import { PermissionsAndroid } from 'react-native';
-import { getMessaging, getToken } from '@react-native-firebase/messaging';
+import {
+  getMessaging,
+  getToken,
+  onMessage,
+} from '@react-native-firebase/messaging';
+import { Alert } from 'react-native';
 
 const requestUserPermissions = async () => {
   const granted = await PermissionsAndroid.request(
@@ -28,5 +33,15 @@ export const useNotifications = () => {
   useEffect(() => {
     requestUserPermissions();
     getFCMToken();
+  }, []);
+
+  useEffect(() => {
+    const messaging = getMessaging();
+    const unsubscribe = onMessage(messaging, async remoteMessage => {
+      const title = remoteMessage.notification?.title || 'No Title';
+      const body = remoteMessage.notification?.body || 'No Body';
+      Alert.alert(title, body);
+    });
+    return unsubscribe;
   }, []);
 };
