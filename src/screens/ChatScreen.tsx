@@ -7,6 +7,7 @@ import { s } from 'react-native-size-matters';
 import { RECEIVED, SENT } from '../constants/chat';
 import ChatInput from '../components/ChatInput';
 import EmptyChat from '../components/EmptyChat';
+import { useKeyboardState } from '../hooks/useKeyboardState';
 
 interface IChatScreen {
   id: number;
@@ -17,6 +18,7 @@ const ChatScreen = () => {
   const [messagesData, setMessagesData] = useState<IChatScreen[]>([]);
   const [msgInput, setMsgInput] = useState('');
   const flatListRef = useRef<FlatList>(null);
+  const { isKeyboardVisible, keyboardHight } = useKeyboardState();
 
   // Function to make FlatList Scroll to bottom
   const scrollToBottom = () => {
@@ -25,9 +27,13 @@ const ChatScreen = () => {
     }
   };
 
+  console.log('messagesData', messagesData);
+  console.log('isKeyboardVisible', isKeyboardVisible);
+  console.log('keyboardHight', keyboardHight);
+
   useEffect(() => {
     scrollToBottom();
-  }, [messagesData]);
+  }, [messagesData, isKeyboardVisible]);
 
   // Function to send a new Message to AI
   const onMessageSent = () => {
@@ -45,9 +51,7 @@ const ChatScreen = () => {
     });
 
     setTimeout(() => {
-      onGetResponse(
-        'Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?',
-      );
+      onGetResponse('Hello, I am AI Assistant, How can I help you today?');
     }, 2000);
   };
 
