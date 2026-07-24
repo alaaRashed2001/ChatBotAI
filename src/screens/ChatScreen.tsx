@@ -6,6 +6,7 @@ import ResponseMessageCard from '../components/ResponseMessageCard';
 import { s } from 'react-native-size-matters';
 import { RECEIVED, SENT } from '../constants/chat';
 import ChatInput from '../components/ChatInput';
+import EmptyChat from '../components/EmptyChat';
 
 interface IChatScreen {
   id: number;
@@ -13,19 +14,7 @@ interface IChatScreen {
   type: string;
 }
 const ChatScreen = () => {
-  const messagesList: IChatScreen[] = [
-    {
-      message: 'Hello',
-      type: SENT,
-      id: 1,
-    },
-    {
-      message: 'Hello',
-      type: RECEIVED,
-      id: 2,
-    },
-  ];
-  const [messagesData, setMessagesData] = useState<IChatScreen[]>(messagesList);
+  const [messagesData, setMessagesData] = useState<IChatScreen[]>([]);
   const [msgInput, setMsgInput] = useState('');
 
   // Function to send a new Message to AI
@@ -78,6 +67,7 @@ const ChatScreen = () => {
             );
           }}
           contentContainerStyle={{ paddingHorizontal: s(8) }}
+          ListEmptyComponent={<EmptyChat />}
         />
 
         <ChatInput
