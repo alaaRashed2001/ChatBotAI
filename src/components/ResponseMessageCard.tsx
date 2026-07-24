@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React, { FC } from 'react';
 import { s, vs } from 'react-native-size-matters';
 import { colors } from '../styles/colors';
+import TypingEffect from './TypingEffect';
 
 interface ResponseMessageCardProps {
   message: string;
@@ -11,7 +12,7 @@ const ResponseMessageCard: FC<ResponseMessageCardProps> = ({ message }) => {
   return (
     <View style={styles.container}>
       <View style={styles.messageContainer}>
-        <Text style={styles.messageText}>{message}</Text>
+        <TypingEffect style={styles.messageText} text={message} />
       </View>
     </View>
   );
