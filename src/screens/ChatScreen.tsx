@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, KeyboardAvoidingView, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AppHeader from '../components/AppHeader';
 import SentMessageCard from '../components/SentMessageCard';
 import ResponseMessageCard from '../components/ResponseMessageCard';
@@ -16,6 +16,18 @@ interface IChatScreen {
 const ChatScreen = () => {
   const [messagesData, setMessagesData] = useState<IChatScreen[]>([]);
   const [msgInput, setMsgInput] = useState('');
+  const flatListRef = useRef<FlatList>(null);
+
+  // Function to make FlatList Scroll to bottom
+  const scrollToBottom = () => {
+    if (flatListRef.current && messagesData.length > 0) {
+      flatListRef.current.scrollToEnd({ animated: true });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messagesData]);
 
   // Function to send a new Message to AI
   const onMessageSent = () => {
@@ -33,7 +45,9 @@ const ChatScreen = () => {
     });
 
     setTimeout(() => {
-      onGetResponse('Hello, I am AI Assistant, How can I help you today?');
+      onGetResponse(
+        'Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?Hello, I am AI Assistant, How can I help you today?',
+      );
     }, 2000);
   };
 
@@ -57,6 +71,7 @@ const ChatScreen = () => {
         <AppHeader />
 
         <FlatList
+          ref={flatListRef}
           data={messagesData}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => {
@@ -68,6 +83,8 @@ const ChatScreen = () => {
           }}
           contentContainerStyle={{ paddingHorizontal: s(8) }}
           ListEmptyComponent={<EmptyChat />}
+          onLayout={scrollToBottom}
+          onContentSizeChange={scrollToBottom}
         />
 
         <ChatInput
