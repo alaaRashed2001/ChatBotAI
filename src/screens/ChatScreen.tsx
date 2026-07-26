@@ -8,6 +8,7 @@ import { RECEIVED, SENT } from '../constants/chat';
 import ChatInput from '../components/ChatInput';
 import EmptyChat from '../components/EmptyChat';
 import { useKeyboardState } from '../hooks/useKeyboardState';
+import { getHuggingFaceResponse } from '../api/http-requests';
 
 interface IChatScreen {
   id: number;
@@ -36,7 +37,7 @@ const ChatScreen = () => {
   }, [messagesData, isKeyboardVisible]);
 
   // Function to send a new Message to AI
-  const onMessageSent = () => {
+  const onMessageSent = (sentMsg: string) => {
     console.log('user type', msgInput);
 
     setMessagesData(prevMessages => {
@@ -51,8 +52,15 @@ const ChatScreen = () => {
     });
 
     setTimeout(() => {
-      onGetResponse('Hello, I am AI Assistant, How can I help you today?');
-    }, 2000);
+      getResFromAI(sentMsg);
+    }, 1000);
+  };
+
+  const getResFromAI = async (msg: string) => {
+    // setIsLoading(true);
+    const generatedText = await getHuggingFaceResponse(msg);
+    onGetResponse(generatedText);
+    //  setIsLoading(false);
   };
 
   // Function to receive statice response
